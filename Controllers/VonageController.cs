@@ -40,6 +40,31 @@ namespace TestProject75.Controllers
             return responseBody;
         }
 
+        [HttpGet("text/{number}")]
+        public async Task<String> TextPhone(String number)
+        {
+            Console.WriteLine(number);
+            var credentials = Credentials.FromApiKeyAndSecret(
+                 "6fb5840a",
+               "VFkVZFodUHL2w1dg"
+             );
+
+            var VonageClient = new VonageClient(credentials);
+            var response = VonageClient.SmsClient.SendAnSms(new Vonage.Messaging.SendSmsRequest()
+            {
+                To = "678-739-8027",
+                From = "678-739-8027",
+                Text = "nice watch, run it, text in group chat if you got this"
+            });
+
+            Console.WriteLine(response);
+            string responseBody = response.ToString();
+            Console.WriteLine(responseBody);
+
+            return responseBody;
+        }
+
+
         [HttpGet("call")]
         public async Task<String> CallPhone()
         {

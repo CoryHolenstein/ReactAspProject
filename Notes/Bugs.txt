@@ -1,0 +1,1 @@
+﻿when pressing get new quote for the first time on page load, it doesn't do crap. you gotta press it twice then it works. Maybe three times. hopefully not three.
