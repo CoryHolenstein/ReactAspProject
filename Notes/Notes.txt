@@ -1,0 +1,2 @@
+﻿-> look into http factory for http client
+-> look into vonage sending texts to different numbers
