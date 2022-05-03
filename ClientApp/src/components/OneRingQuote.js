@@ -9,17 +9,16 @@ export class OneRingQuote extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { allQuoteArray: [], randomNum1: "", chosenQuote: "", responseStatus: "", phone: "", loading: true };
-        this.handleChange = this.handleChange.bind(this);
+        this.state = { allQuoteArray: [], randomNum: "", chosenQuote: "", responseStatus: "", phone: "", loading: true };
     }
     
   
-    componentDidMount() {
-        this.grabRandomQuote();
+    componentWillMount() {
+        this.grabQuoteArray();
 
     }
     
-    async grabRandomQuote() {
+    async grabQuoteArray() {
         await axios.get('https://localhost:7282/api/RingQuote/route')
             .then((response) => {
                 console.log(response.data.docs[100]);
@@ -30,43 +29,41 @@ export class OneRingQuote extends Component {
                 }
             });
         console.log(this.state.allQuoteArray);
-        this.grabRandomNumbers();
+
     }
 
      handleSubmit(event) {
          event.preventDefault();
         var number = this.state.phone;
-        event.preventDefault();
          axios.get('https://localhost:7282/api/Vonage/text/' + number)
             .then((response) => {
                 console.log(response.data);
                 console.log(response.status);
                 if (response.status == 500) {
-                    this.setState({ responseStatus: "Error grabbing data from API." });
+                    this.setState({ responseStatus: "Error grabbing data from API.", loading: false });
                 }
             });
      
     }
 
-    grabRandomNumbers(event) {
+    grabRandomNumbers() {
         var maxNumber = 1000;
         var randomNumber = Math.floor((Math.random() * maxNumber) + 1);
-        this.setState({ randomNum1: randomNumber });
-        console.log(this.state.randomNum1);
-        this.getRandomQuote();
+        this.setState({ randomNum: randomNumber });
+        console.log(this.state.randomNum);
+       
     }
 
     getRandomQuote() {
-        var num = this.state.randomNum1;
+        this.grabRandomNumbers();
+        var num = this.state.randomNum;
         console.log(num);
      
-        this.setState({ chosenQuote: this.state.allQuoteArray[num].dialog, loading: false });
+        this.setState({ chosenQuote: this.state.allQuoteArray[num].dialog });
         console.log(this.state.chosenQuote);
     }
 
-    setPhoneNumber(value) {
-        this.setState({ phoneNumberInput: value });
-    }
+
    
 
     static displayRandomQuote(quote) {
@@ -76,24 +73,14 @@ export class OneRingQuote extends Component {
 
     }
 
-    handleChange(event) {
-        console.log("handle change", event);
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
+
 
     render() {
-            let contents = this.state.loading
-                ? <p><em>Loading...</em></p>
-                : OneRingQuote.displayRandomQuote(this.state.chosenQuote);
 
         return (
             <div>
+                <button color="primary" onClick={this.getRandomQuote.bind(this)}>New quote</button>
                 <form onSubmit={this.handleSubmit}>
-                <p>Your random quote is:</p>
-                {contents}
-                <button color="primary" onClick={this.grabRandomNumbers.bind(this)}>New quote</button>
                 <br></br>
                 <Badge
                     color="primary"

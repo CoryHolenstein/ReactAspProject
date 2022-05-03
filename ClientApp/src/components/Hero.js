@@ -6,7 +6,7 @@ export class Hero extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { hero: "", heroName: "", loading: true };
+        this.state = { allHeros: "", heroName: "", nextPage: "", previousPage: "", loading: true };
     }
 
     componentDidMount() {
@@ -16,27 +16,68 @@ export class Hero extends Component {
 
     }
     async grabHeroTest() {
-        await axios.get('https://localhost:7282/api/Hero/route')
+        await axios.get('https://localhost:7282/api/Hero/get-all-heros')
             .then((response) => {
-                console.log(response.data);
+                console.log(response);
                 console.log(response.status);
-                this.setState({ hero: response.data, heroName: response.data.name, loading: false });
+                console.log(response.data.next);
+                console.log(response.data.previous);
+                this.setState({ allHeros: response.data.results, heroName: response.data.name, nextPage: response.data.next, previousPage:response.data.previous, loading: false });
+           
+
+            });
+    }
+   async loadNextPage(pageNum) {
+        await axios.get('https://localhost:7282/api/Hero/get-next-page/' + pageNum)
+            .then((response) => {
+                console.log(response);
+                console.log(response.status);
+                console.log(response.data.next);
+                console.log(response.data.previous);
+                this.setState({ allHeros: response.data.results, heroName: response.data.name, nextPage: response.data.next, previousPage: response.data.previous });
 
             });
     }
 
-
     static renderHerosTable(heros) {
         return (
-            <div></div>
+            <table className='table table-striped' aria-labelledby="tabelLabel">
+                <thead>
+                    <tr>
+                        <th>Characters</th>
+                        <th>Birth Year</th>
+                        <th>Eye color</th>
+                        <th>Height</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {heros.map(hero =>
+                        <tr key={hero.name}>
+                            <td>{hero.name}</td>
+                            <td>{hero.birth_year}</td>
+                            <td>{hero.eye_color}</td>
+                            <td>{hero.height} cm</td>
+
+                        </tr>
+                    )}
+                </tbody>
+            </table>
         );
 
     }
+    spliceUrlString(page) {
+
+        var num = page.slice(-1);
+        console.log("sliced page: ", num);
+        this.loadNextPage(num);
+    }
+
+   
 
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Hero.renderHerosTable(this.state.hero);
+            : Hero.renderHerosTable(this.state.allHeros);
 
         return (
             <div>
@@ -44,7 +85,10 @@ export class Hero extends Component {
                 <p>This component demonstrates fetching data from the server.</p>
                 {contents}
                 {this.state.heroName}
-                <p> YOU GOT THIS LETS GOOOOOOOOOOOOOOOOOOOOOOOOOOOOO</p>
+                Next Page: {this.state.nextPage}
+
+                <button disabled={!this.state.previousPage} onClick={() => { this.spliceUrlString(this.state.previousPage) }} > Previous Page</button>
+                <button disabled={!this.state.nextPage} onClick={() => { this.spliceUrlString(this.state.nextPage) }} > Next Page</button>
             </div>
         );
     }
@@ -53,41 +97,5 @@ export class Hero extends Component {
 
 
 }
-//https://localhost:7282/api/Hero
 
 
-/*
- *    <thead>
-                    <tr>
-                        <th>Name</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    {heros.map(hero =>
-                        <tr key={hero.name}>
-                            <td>{hero.name}</td>
-                        </tr>
-                    )}
-                </tbody>
- * 
- * 
- * */
-/*
- * 
- *   async grabHeroTest() {
-        const response = await fetch('https://localhost:7282/api/Hero/route', {
-            crossDomain: true,
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-
-        });
-        const data = await response.json();
-        console.log(response.json);
-        this.setState({ hero: data, loading: false });
-    }
-
- * 
- * */

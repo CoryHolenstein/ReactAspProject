@@ -8,6 +8,7 @@ import { Hero } from './components/Hero';
 import { Landing } from './components/Landing';
 import { OneRingQuote } from './components/OneRingQuote';
 import { Vonage } from './components/Vonage';
+import { LOTRQuote } from './components/LOTRQuote';
 
 import './custom.css'
 
@@ -23,7 +24,8 @@ export default class App extends Component {
         <Route path='/hero' component={Hero} />
         <Route path='/landing' component={Landing} />
         <Route path='/ring-quote' component={OneRingQuote} />
-        <Route path='/vonage' component={Vonage} />
+            <Route path='/vonage' component={Vonage} />
+            <Route path='/lotr-quote' component={LOTRQuote} />
       </Layout>
     );
   }

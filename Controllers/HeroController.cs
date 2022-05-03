@@ -14,7 +14,9 @@ namespace TestProject75.Controllers
         public HeroController(IHttpClientFactory httpClientFactory) =>
        _httpClientFactory = httpClientFactory;
 
-        [HttpGet("route")]
+       readonly string BASE_URL = "http://swapi.dev/api";
+
+        [HttpGet("get-all-heros")]
         public async Task<String> Get()
         {
 
@@ -22,12 +24,31 @@ namespace TestProject75.Controllers
             var client = _httpClientFactory.CreateClient();
 
 
-            var response = await client.GetAsync("http://swapi.dev/api/people/1/");
+            var response = await client.GetAsync("https://swapi.dev/api/people");
             Console.WriteLine(response.Content);
             response.EnsureSuccessStatusCode();
             
             string responseBody = await response.Content.ReadAsStringAsync();
             Console.WriteLine( responseBody);    
+            return responseBody;
+        }
+
+
+        [HttpGet("get-next-page/{id:int}")]
+        public async Task<String> Get(string id)
+        {
+            Console.WriteLine(id);
+
+            var client = _httpClientFactory.CreateClient();
+
+
+            var response = await client.GetAsync("https://swapi.dev/api/people/?page="+id);
+            Console.WriteLine(response.Content);
+            response.EnsureSuccessStatusCode();
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+            client.Dispose();
+            Console.WriteLine(responseBody);
             return responseBody;
         }
     }
