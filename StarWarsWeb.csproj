@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.4" />
-    <PackageReference Include="Vonage" Version="5.10.0" />
+    <PackageReference Include="Microsoft.Azure.AppService.ApiApps.Service" Version="0.9.64" />
   </ItemGroup>
 
   <ItemGroup>
