@@ -51,7 +51,7 @@ export class Hero extends Component {
                         <th>Birth Year</th>
                         <th>Eye color</th>
                         <th>Height</th>
-                        <th>Information</th>
+                        <th>Hair Color</th>
                       
                     </tr>
                 </thead>
@@ -62,7 +62,7 @@ export class Hero extends Component {
                             <td>{hero.birth_year}</td>
                             <td>{hero.eye_color}</td>
                             <td>{hero.height} cm</td> 
-                          <td> <Button>Details</Button></td>
+                            <td>{hero.hair_color}</td>
                         </tr>
                     )}
                 </tbody>

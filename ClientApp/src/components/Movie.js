@@ -1,13 +1,14 @@
-﻿import React, { Component } from 'react'
+﻿import React, { Component, useContext } from 'react'
 import axios from 'axios';
 import { Badge, Button, Table } from 'react-bootstrap';
 import './Table.css';
-export class Movie extends Component {
 
+
+export class Movie extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { allMovies: "",  nextPage: "", previousPage: "", loading: true };
+        this.state = { allMovies: "", nextPage: "", previousPage: "", loading: true };
     }
 
     componentDidMount() {
@@ -49,7 +50,7 @@ export class Movie extends Component {
                         <th>Episode ID</th>
                         <th>Release Date</th>
                         <th>Director</th>
-                        <th>Information</th>
+                        <th>Producer</th>
                       
                     </tr>
                 </thead>
@@ -60,7 +61,7 @@ export class Movie extends Component {
                             <td>{movie.episode_id}</td>
                             <td>{movie.release_date}</td>
                             <td>{movie.director}</td>
-                          <td> <Button>Details</Button></td>
+                            <td>{movie.producer}</td>
                         </tr>
                     )}
                 </tbody>

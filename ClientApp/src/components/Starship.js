@@ -49,7 +49,7 @@ export class Starship extends Component {
                         <th>Class</th>
                         <th>HyperDrive Rating</th>
                         <th>Length</th>
-                        <th>Information</th>
+                        <th>Crew Size</th>
                       
                     </tr>
                 </thead>
@@ -60,7 +60,7 @@ export class Starship extends Component {
                             <td>{starship.starship_class}</td>
                             <td>{starship.hyperdrive_rating}</td>
                             <td>{starship.length} </td>
-                          <td> <Button>Details</Button></td>
+                            <td>{starship.crew} </td>
                         </tr>
                     )}
                 </tbody>
