@@ -1,3 +1,6 @@
 ﻿-> look into http factory for http client
 -> implement http factory
--> look into vonage sending texts to different numbers
+-> Details pages - context
+-> better styling for all of react app
+-> more pages
+

@@ -1,12 +1,15 @@
 ﻿import React, { Component } from 'react'
 import axios from 'axios';
-
+import { Badge, Button, Table } from 'react-bootstrap';
+import './Table.css';
+import './ComponentStyles.css';
+import { Link } from 'react-router-dom';
 export class Hero extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = { allHeros: "", heroName: "", nextPage: "", previousPage: "", loading: true };
+        this.state = { allHeros: "",  nextPage: "", previousPage: "", loading: true };
     }
 
     componentDidMount() {
@@ -22,7 +25,7 @@ export class Hero extends Component {
                 console.log(response.status);
                 console.log(response.data.next);
                 console.log(response.data.previous);
-                this.setState({ allHeros: response.data.results, heroName: response.data.name, nextPage: response.data.next, previousPage:response.data.previous, loading: false });
+                this.setState({ allHeros: response.data.results,  nextPage: response.data.next, previousPage:response.data.previous, loading: false });
            
 
             });
@@ -34,34 +37,36 @@ export class Hero extends Component {
                 console.log(response.status);
                 console.log(response.data.next);
                 console.log(response.data.previous);
-                this.setState({ allHeros: response.data.results, heroName: response.data.name, nextPage: response.data.next, previousPage: response.data.previous });
+                this.setState({ allHeros: response.data.results,nextPage: response.data.next, previousPage: response.data.previous });
 
             });
     }
 
     static renderHerosTable(heros) {
         return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
+            <Table className="styled-table" aria-labelledby="tabelLabel" >
+                <thead className="thead">
                     <tr>
                         <th>Characters</th>
                         <th>Birth Year</th>
                         <th>Eye color</th>
                         <th>Height</th>
+                        <th>Information</th>
+                      
                     </tr>
                 </thead>
                 <tbody>
-                    {heros.map(hero =>
-                        <tr key={hero.name}>
-                            <td>{hero.name}</td>
+                    {heros.map(hero => 
+                        <tr key={hero.name} >
+                        <td>{hero.name}</td>
                             <td>{hero.birth_year}</td>
                             <td>{hero.eye_color}</td>
-                            <td>{hero.height} cm</td>
-
+                            <td>{hero.height} cm</td> 
+                          <td> <Button>Details</Button></td>
                         </tr>
                     )}
                 </tbody>
-            </table>
+            </Table>
         );
 
     }
@@ -80,16 +85,19 @@ export class Hero extends Component {
             : Hero.renderHerosTable(this.state.allHeros);
 
         return (
-            <div>
-                <h1 id="tabelLabel" >Test Hero</h1>
+           
+            <div className=".hero-page">
+                <h1><Badge bg="danger">Heros</Badge></h1>
                 <p>This component demonstrates fetching data from the server.</p>
                 {contents}
-                {this.state.heroName}
-                Next Page: {this.state.nextPage}
+                
+           
 
-                <button disabled={!this.state.previousPage} onClick={() => { this.spliceUrlString(this.state.previousPage) }} > Previous Page</button>
-                <button disabled={!this.state.nextPage} onClick={() => { this.spliceUrlString(this.state.nextPage) }} > Next Page</button>
+                <Button variant="primary" disabled={!this.state.previousPage} onClick={() => { this.spliceUrlString(this.state.previousPage) }} > Previous Page</Button>{" "}
+                    <Button variant="primary" disabled={!this.state.nextPage} onClick={() => { this.spliceUrlString(this.state.nextPage) }} > Next Page</Button>
             </div>
+             
+             
         );
     }
 
