@@ -8,15 +8,15 @@ namespace TestProject75.Controllers
    
     [Route("api/[controller]")]
     [ApiController]
-    public class HeroController : ControllerBase
+    public class MovieController : ControllerBase
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public HeroController(IHttpClientFactory httpClientFactory) =>
+        public MovieController(IHttpClientFactory httpClientFactory) =>
        _httpClientFactory = httpClientFactory;
 
        readonly string BASE_URL = "https://swapi.dev/api";
 
-        [HttpGet("get-all-heros")]
+        [HttpGet("get-all-movies")]
         public async Task<String> Get()
         {
 
@@ -24,7 +24,7 @@ namespace TestProject75.Controllers
             var client = _httpClientFactory.CreateClient();
 
 
-            var response = await client.GetAsync(BASE_URL + "/people");
+            var response = await client.GetAsync(BASE_URL + "/films/");
             Console.WriteLine(response.Content);
             response.EnsureSuccessStatusCode();
             
@@ -42,7 +42,7 @@ namespace TestProject75.Controllers
             var client = _httpClientFactory.CreateClient();
 
 
-            var response = await client.GetAsync(BASE_URL+ "/people/?page=" +id);
+            var response = await client.GetAsync(BASE_URL+ "/films/?page=" +id);
             Console.WriteLine(response.Content);
             response.EnsureSuccessStatusCode();
 

@@ -1,67 +1,65 @@
 ﻿import React, { Component } from 'react'
 import axios from 'axios';
 import { Badge, Button, Table } from 'react-bootstrap';
-import './Table.css';
 
-
-export class Hero extends Component {
+export class Starship extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = { allHeros: "",  nextPage: "", previousPage: "", loading: true };
+        this.state = { allStarships: "",  nextPage: "", previousPage: "", loading: true };
     }
 
     componentDidMount() {
 
 
-        this.grabHeroTest();
+        this.grabAllStarships();
 
     }
-    async grabHeroTest() {
-        await axios.get('https://localhost:7282/api/Hero/get-all-heros')
+    async grabAllStarships() {
+        await axios.get('https://localhost:7282/api/Starship/get-all-starships')
             .then((response) => {
                 console.log(response);
                 console.log(response.status);
                 console.log(response.data.next);
                 console.log(response.data.previous);
-                this.setState({ allHeros: response.data.results,  nextPage: response.data.next, previousPage:response.data.previous, loading: false });
+                this.setState({ allStarships: response.data.results,  nextPage: response.data.next, previousPage:response.data.previous, loading: false });
            
 
             });
     }
    async loadNextPage(pageNum) {
-        await axios.get('https://localhost:7282/api/Hero/get-next-page/' + pageNum)
+       await axios.get('https://localhost:7282/api/Starship/get-next-page/' + pageNum)
             .then((response) => {
                 console.log(response);
                 console.log(response.status);
                 console.log(response.data.next);
                 console.log(response.data.previous);
-                this.setState({ allHeros: response.data.results,nextPage: response.data.next, previousPage: response.data.previous });
+                this.setState({ allStarships: response.data.results, nextPage: response.data.next, previousPage: response.data.previous });
 
             });
     }
 
-    static renderHerosTable(heros) {
+    static renderStarshipsTable(starships) {
         return (
             <Table className="styled-table" aria-labelledby="tabelLabel" >
                 <thead className="thead">
                     <tr>
-                        <th>Characters</th>
-                        <th>Birth Year</th>
-                        <th>Eye color</th>
-                        <th>Height</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>HyperDrive Rating</th>
+                        <th>Length</th>
                         <th>Information</th>
                       
                     </tr>
                 </thead>
                 <tbody>
-                    {heros.map(hero => 
-                        <tr key={hero.name} >
-                        <td>{hero.name}</td>
-                            <td>{hero.birth_year}</td>
-                            <td>{hero.eye_color}</td>
-                            <td>{hero.height} cm</td> 
+                    {starships.map(starship => 
+                        <tr key={starship.name} >
+                            <td>{starship.name}</td>
+                            <td>{starship.starship_class}</td>
+                            <td>{starship.hyperdrive_rating}</td>
+                            <td>{starship.length} </td>
                           <td> <Button>Details</Button></td>
                         </tr>
                     )}
@@ -82,12 +80,13 @@ export class Hero extends Component {
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Hero.renderHerosTable(this.state.allHeros);
+            : Starship.renderStarshipsTable(this.state.allStarships);
 
         return (
            
             <div className=".hero-page">
-                <h1><Badge bg="danger">Heros</Badge></h1>
+                <h1><Badge bg="danger">Starships</Badge></h1>
+   
                 {contents}
                 
            

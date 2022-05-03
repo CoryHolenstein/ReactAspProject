@@ -11,19 +11,18 @@ tr:nth-child(odd) {
 tr:nth-child(even):hover {
     background: #000000;
     outline: none;
-    cursor: pointer;
-
+    font-size: 32px;
 }
 tr:nth-child(odd):hover {
     background: #d0cdcd;
     outline: none;
-    cursor: pointer;
+    font-size: 32px;
 }
 
 td {
-    font-weight: 500;
+    font-weight: 800;
     font-family: "Lucida Console", "Courier New", monospace;
-    border: 2px solid #ccd2ff;
+    border: 2px solid #ff0000;
     position: relative;
     padding: 18px;
 }
@@ -37,11 +36,13 @@ td {
     display: inline-block;
     font-size: 16px;
 }
+    .button:hover {
+        cursor: pointer;
+    }
 .styled-table {
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
-    font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
