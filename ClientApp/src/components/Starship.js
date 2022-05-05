@@ -16,6 +16,8 @@ export class Starship extends Component {
         this.grabAllStarships();
 
     }
+
+    //grab all starships from api
     async grabAllStarships() {
         await axios.get('https://localhost:7282/api/Starship/get-all-starships')
             .then((response) => {

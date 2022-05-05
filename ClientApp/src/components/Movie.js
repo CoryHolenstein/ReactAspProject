@@ -17,6 +17,7 @@ export class Movie extends Component {
         this.grabAllMovies();
 
     }
+    //call api to get all movies
     async grabAllMovies() {
         await axios.get('https://localhost:7282/api/Movie/get-all-movies')
             .then((response) => {
@@ -29,6 +30,7 @@ export class Movie extends Component {
 
             });
     }
+    //load next page of movies with page num
    async loadNextPage(pageNum) {
         await axios.get('https://localhost:7282/api/Movie/get-next-page/' + pageNum)
             .then((response) => {
@@ -40,7 +42,7 @@ export class Movie extends Component {
 
             });
     }
-
+    //render movies table
     static renderMoviesTable(movies) {
         return (
             <Table className="styled-table" aria-labelledby="tabelLabel" >
@@ -69,6 +71,8 @@ export class Movie extends Component {
         );
 
     }
+
+    //splice int from string
     spliceUrlString(page) {
 
         var num = page.slice(-1);

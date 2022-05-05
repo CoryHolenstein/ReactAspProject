@@ -12,13 +12,14 @@ export class Hero extends Component {
         this.state = { allHeros: "",  nextPage: "", previousPage: "", loading: true };
     }
 
+
+    //on page load grab all heros from api
     componentDidMount() {
-
-
-        this.grabHeroTest();
+        this.grabAllHeros();
 
     }
-    async grabHeroTest() {
+    //grab all heroes on the front page and next/previous page data
+    async grabAllHeros() {
         await axios.get('https://localhost:7282/api/Hero/get-all-heros')
             .then((response) => {
                 console.log(response);
@@ -30,6 +31,7 @@ export class Hero extends Component {
 
             });
     }
+    //api call to grab the next page and get the results of the heros there
    async loadNextPage(pageNum) {
         await axios.get('https://localhost:7282/api/Hero/get-next-page/' + pageNum)
             .then((response) => {
@@ -41,7 +43,7 @@ export class Hero extends Component {
 
             });
     }
-
+    //render the heros table
     static renderHerosTable(heros) {
         return (
             <Table className="styled-table" aria-labelledby="tabelLabel" >
@@ -70,6 +72,8 @@ export class Hero extends Component {
         );
 
     }
+
+    //get the last int from a string so we can set that as page number
     spliceUrlString(page) {
 
         var num = page.slice(-1);

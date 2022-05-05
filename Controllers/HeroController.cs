@@ -16,6 +16,7 @@ namespace TestProject75.Controllers
 
        readonly string BASE_URL = "https://swapi.dev/api";
 
+        //get all heros
         [HttpGet("get-all-heros")]
         public async Task<String> Get()
         {
@@ -32,7 +33,7 @@ namespace TestProject75.Controllers
             Console.WriteLine( responseBody);    
             return responseBody;
         }
-
+        //call hero page with id we spliced off
 
         [HttpGet("get-next-page/{id:int}")]
         public async Task<String> Get(string id)

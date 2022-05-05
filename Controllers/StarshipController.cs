@@ -16,6 +16,7 @@ namespace TestProject75.Controllers
 
        readonly string BASE_URL = "https://swapi.dev/api";
 
+        //grab all starships
         [HttpGet("get-all-starships")]
         public async Task<String> Get()
         {
@@ -33,7 +34,8 @@ namespace TestProject75.Controllers
             return responseBody;
         }
 
-
+        //pass in page ID that we spliced off the end of the string
+        //grab contents from that page data
         [HttpGet("get-next-page/{id:int}")]
         public async Task<String> Get(string id)
         {

@@ -15,7 +15,7 @@ namespace TestProject75.Controllers
        _httpClientFactory = httpClientFactory;
 
        readonly string BASE_URL = "https://swapi.dev/api";
-
+        //grab all movies
         [HttpGet("get-all-movies")]
         public async Task<String> Get()
         {
@@ -33,7 +33,7 @@ namespace TestProject75.Controllers
             return responseBody;
         }
 
-
+        //call api of the next movie page with id we spliced off
         [HttpGet("get-next-page/{id:int}")]
         public async Task<String> Get(string id)
         {
