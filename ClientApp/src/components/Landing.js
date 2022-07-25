@@ -26,10 +26,8 @@ export class Landing extends Component {
                             <h1></h1>
                         </div>
 
-                        <p>It is a period of great unrest. He works at an externship as a game developer but they are having funding issues.</p>
-                        <p>Neudesic seems like a perfect fit for Cory, as everyone seems awesome and he loves PDITI!</p>
-                        <p>Will Cory learn the ways of React and .net before the interview?</p>
-                        <p>Or will he be doomed as an extern... forever...</p>
+                        <p>Entry level software developer. </p>
+                        <p>Currently working as an IVR software developer in Georgia.</p>
 
 
                     </div>
